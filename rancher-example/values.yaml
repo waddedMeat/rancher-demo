@@ -1,0 +1,17 @@
+# SET A HOST NAME!!
+# DO NOT USE AN IP ADDRESS
+#
+# The purpose of running Rancher on k8s is for HA deployments
+# Set the hostname that will be load balanced across all k8s nodes
+hostname: rancher.example.com
+
+rancherImageTag: v2.4.5
+
+ingress:
+  tls:
+    # create a k8s tls secret named tls-rancher-ingress
+    source: secret
+
+# Number of Rancher server replicas.
+replicas: 1
+

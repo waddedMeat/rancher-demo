@@ -1,0 +1,30 @@
+# Example cluster.yml file
+#
+# see https://rancher.com/docs/rke/latest/en/example-yamls/
+cluster_name: rke-cluster
+
+nodes:
+# RKE will ssh into servers to configure them
+- address: node-1
+  user: "vagrant"
+  port: 22
+  role:
+    - controlplane
+    - etcd
+    - worker
+
+# RKE runs the ingress as a daemonset (one on each node/server)
+# It binds to port 80/443 on each node/server to expose applications
+ingress:
+  provider: nginx
+
+# Note: Rancher runs EVERYTHING in docker containers
+#       Any k8s "local" storage volumes will be created "inside" the kubelet container
+#       You will have to bind host volumes to the kubelet for this feature to work as expected
+#
+#services:
+#    kubelet:
+#      # Optionally define additional volume binds to a service
+#      extra_binds:
+#        - "/usr/libexec/kubernetes/kubelet-plugins:/usr/libexec/kubernetes/kubelet-plugins"
+
