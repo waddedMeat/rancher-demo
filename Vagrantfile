@@ -35,13 +35,14 @@ Vagrant.configure("2") do |config|
 
   end
 
+  (1..1).each do |i|
   config.vm.define "node-1" do |config|
 
     config.vm.box = "centos/7"
 
     # setup private network with host file entries
     config.vm.hostname = 'node-1'
-    config.vm.network "private_network", ip: "192.168.10.21"
+    config.vm.network "private_network", ip: "192.168.10.#{20+i}"
     config.vm.provision "shell", inline: $host_script
 
     # prepare server for k8s
@@ -55,11 +56,12 @@ Vagrant.configure("2") do |config|
     # install docker (you have to restart docker if the firewall rules change)
     config.vm.provision "shell", path: "provision/tools/docker.sh"
 
-    config.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "4096"]
-      vb.customize ["modifyvm", :id, "--cpus", "2"]
-    end
+#    config.vm.provider :virtualbox do |vb|
+#      vb.customize ["modifyvm", :id, "--memory", "4096"]
+#      vb.customize ["modifyvm", :id, "--cpus", "2"]
+#    end
 
+  end
   end
 
 end
