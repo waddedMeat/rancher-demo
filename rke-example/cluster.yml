@@ -5,8 +5,9 @@ cluster_name: rke-cluster
 
 nodes:
 # RKE will ssh into servers to configure them
-- address: node-1
-  user: "vagrant"
+# Add more servers and run `rku up` to update the cluster
+- address: 192.168.10.11
+  user: vagrant
   port: 22
   role:
     - controlplane
